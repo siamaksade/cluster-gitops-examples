@@ -4,5 +4,7 @@ kind: ManagedClusterSetBinding
 metadata:
   name: all-openshift-clusters
   namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   clusterSet: all-openshift-clusters
