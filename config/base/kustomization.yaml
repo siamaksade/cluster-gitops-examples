@@ -1,0 +1,2 @@
+resources:
+  - operators/openshift-pipelines-subscription.yaml
