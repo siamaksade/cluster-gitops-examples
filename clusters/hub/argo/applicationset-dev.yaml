@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: dev-cluster-configs
+  namespace: openshift-gitops
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: dev-openshift-clusters
+        requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: 'dev-{{name}}'
+    spec:
+      project: "default"
+      source:
+        repoURL: https://github.com/siamaksade/cluster-gitops-examples
+        targetRevision: HEAD
+        path: clusters/dev
+      destination:
+        server: '{{server}}'
+        namespace: default
+      syncPolicy:
+        automated:
+          selfHeal: true
