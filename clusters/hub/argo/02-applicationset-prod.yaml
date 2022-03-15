@@ -23,7 +23,7 @@ spec:
       source:
         repoURL: https://github.com/siamaksade/cluster-gitops-examples
         targetRevision: HEAD
-        path: clusters/dev
+        path: clusters/prod
       destination:
         server: '{{server}}'
         namespace: default
