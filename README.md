@@ -1,33 +1,19 @@
 # BU Cluster Examples
 
+## Directories
 
-Add the following rolebinding to Argo CD to give it sufficient privileges for creating RHACM resources:
-```
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: argocd-open-cluster-management-admin
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: open-cluster-management:cluster-manager-admin
-subjects:
-- kind: ServiceAccount
-  name: openshift-gitops-argocd-application-controller
-  namespace: openshift-gitops 
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: argocd-open-cluster-management-gitopscluster-admin
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: gitopsclusters.apps.open-cluster-management.io-v1beta1-admin
-subjects:
-- kind: ServiceAccount
-  name: openshift-gitops-argocd-application-controller
-  namespace: openshift-gitops 
-```
+* `clusters/hub`: RHACM and OpenShift Hub cluster configurations
+* `clusters/all`: all spoke cluster configurations
+* `clusters/dev`: dev cluster configuration overrides
+* `clusters/prod`: prod cluster configuration overrides
 
+
+## Setup
+
+1. Install OpenShift GitOps on the Hub cluster from the OperatorHub
+
+2. Navigate to the Cluster Argo CD from the Red Hat Application menu, or from the `openshift-gitops` namespace
+
+3. Create [`hub-argocd-rolebinding.yaml`](hub-argocd-rolebinding.yaml) on the Hub cluster in order to elevate Argo CD privileges to be able to managed RHACM configurations:
+
+4. Create [`hub-application.yaml`](hub-application.yaml) on the Hub cluster
